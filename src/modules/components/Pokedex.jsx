@@ -1,11 +1,8 @@
 /* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/jsx-key */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
 import { useDispatch, useSelector } from 'react-redux';
 import lodash from 'lodash';
-import { useEffect } from 'react';
+import PropTypes, { useEffect } from 'react';
 import { GetPokemon } from '../actions/ActionCreatorPokemon';
 
 function Pokemon(props) {
@@ -33,7 +30,7 @@ function Pokemon(props) {
             <div className="stats">
               <h1>Stats</h1>
               {pokeData.stats.map((el) => (
-                <div className="stats-bar">
+                <div className="stats-bar" key={el.id}>
                   <label htmlFor="label">{el.stat.name}</label>
                   <progress max="100" value={el.base_stat} />
                 </div>
@@ -42,7 +39,7 @@ function Pokemon(props) {
             <div className="ability">
               <h1>Abilities</h1>
               {pokeData.abilities.map((el) => (
-                <p>{el.ability.name}</p>
+                <p key={el.id}>{el.ability.name}</p>
               ))}
             </div>
           </div>
@@ -68,5 +65,10 @@ function Pokemon(props) {
     </div>
   );
 }
-
+Pokemon.defaultProps = {
+  match: '',
+};
+Pokemon.propTypes = {
+  match: PropTypes.string,
+};
 export default Pokemon;

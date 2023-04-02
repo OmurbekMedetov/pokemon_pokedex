@@ -1,28 +1,23 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-key */
-/* eslint-disable no-use-before-define */
-/* eslint-disable import/no-extraneous-dependencies */
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes, { useEffect, useState } from 'react';
 import lodash from 'lodash';
 
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Pagination } from 'antd';
 import { GetPokemonList } from '../actions/ActionCreatorPokemon';
 
 function PokemonList(props) {
+  const { history } = props;
   const [search, setSearch] = useState();
   const dispatch = useDispatch();
   const PokemonListState = useSelector((state) => state.PokemonList);
 
-  useEffect(() => {
-    FetchData(1);
-  }, []);
-
   const FetchData = (page = 1) => {
     dispatch(GetPokemonList(page));
   };
+  useEffect(() => {
+    FetchData(1);
+  }, []);
 
   const showData = () => {
     if (PokemonListState.Loading) {
@@ -33,7 +28,7 @@ function PokemonList(props) {
       return (
         <div className="list-wrapper">
           {PokemonListState.data.map((el) => (
-            <div className="pokemon-item">
+            <div className="pokemon-item" key={el.id}>
               <p>{el.name}</p>
               <div className="bottom-color">
                 <Link to={`/pokemon/${el.name}`}>посмотреть</Link>
@@ -55,7 +50,7 @@ function PokemonList(props) {
     <div>
       <div className="search-wrapper">
         <input type="text" placeholder="Поиск покемона" onChange={(e) => setSearch(e.target.value)} />
-        <button type="button" onClick={() => props.history.push(`/pokemon/${search}`)}>
+        <button type="button" onClick={() => history.push(`/pokemon/${search}`)}>
           Поиск
         </button>
       </div>
@@ -66,5 +61,10 @@ function PokemonList(props) {
     </div>
   );
 }
-
+PokemonList.defaultProps = {
+  history: 'history',
+};
+PokemonList.propTypes = {
+  history: PropTypes.string,
+};
 export default PokemonList;

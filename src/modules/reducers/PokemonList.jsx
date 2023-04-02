@@ -1,4 +1,3 @@
-/* eslint-disable default-param-last */
 const DefaultState = {
   loading: false,
   data: [],
@@ -6,7 +5,7 @@ const DefaultState = {
   count: 0,
 };
 
-const PokemonListReducer = (state = DefaultState, action) => {
+const PokemonListReducer = (state = DefaultState, action = {}) => {
   switch (action.type) {
     case 'POKEMON_LIST_LOADING':
       return {

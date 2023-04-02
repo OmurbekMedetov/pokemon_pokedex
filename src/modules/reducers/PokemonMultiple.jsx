@@ -1,11 +1,10 @@
-/* eslint-disable default-param-last */
 const DefaultState = {
   loading: false,
   data: {},
   errorMsg: '',
 };
 
-const PokemonMultipleReducer = (state = DefaultState, action) => {
+const PokemonMultipleReducer = (state = DefaultState, action = {}) => {
   switch (action.type) {
     case 'POKEMON_MULTIPLE_LOADING':
       return {

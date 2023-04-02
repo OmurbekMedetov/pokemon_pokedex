@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { combineReducers } from 'redux';
 import PokemonListReducer from './PokemonList';
 import PokemonMultipleReducer from './PokemonMultiple';
